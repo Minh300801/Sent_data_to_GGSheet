@@ -1,0 +1,31 @@
+link gg acc sieugroup: https://docs.google.com/spreadsheets/d/1mrvN-esqay4sLl3wUIrEgbJT0akXBUUarjq9DrErdpQ/edit#gid=0
+
+
+// Khai báo sử dụng gg sheet ID
+var ssID = SpreadsheetApp.openById('1mrvN-esqay4sLl3wUIrEgbJT0akXBUUarjq9DrErdpQ');
+var sheetName = ssID.getSheetByName('Bag Machine');
+// Tạo hàm doGet trả về giá trị 
+function doGet(e) {
+  var value1 = sheetName.getRange('A2').getValue(); // Trả về Trạng thái hđ máy 1
+  var value2 = sheetName.getRange('D2').getValue(); // Trả về Trạng thái hđ máy 2
+  var value3 = sheetName.getRange('G2').getValue(); // Trả về Trạng thái hđ máy 3
+
+  return ContentService.createTextOutput(value1 + value2 + value3 ); // Trả về chuỗi giá trị khi gọi hàm doget
+  SpreadsheetApp.flush();
+}
+
+function doPost(e) {
+  var value1 = e.parameter.value1;
+  var day1 = Utilities.formatDate(new Date(), "GMT+7", "dd/MM/yyy"); // in giá trị ngày tháng năm từ gg server
+  var time1 = Utilities.formatDate(new Date(), "GMT+7", "HH:mm");
+
+  var value2 = e.parameter.value2;
+  var day2 = Utilities.formatDate(new Date(), "GMT+7", "dd/MM/yyy"); // in giá trị ngày tháng năm từ gg server
+  var time2 = Utilities.formatDate(new Date(), "GMT+7", "HH:mm");
+
+  var value3 = e.parameter.value3;
+  var day3 = Utilities.formatDate(new Date(), "GMT+7", "dd/MM/yyy"); // in giá trị ngày tháng năm từ gg server
+  var time3 = Utilities.formatDate(new Date(), "GMT+7", "HH:mm");
+sheetName.appendRow([value1, day1, time1,value2, day2, time2,value3, day3, time3]);
+
+}
